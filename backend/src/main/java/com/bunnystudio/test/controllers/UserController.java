@@ -48,7 +48,7 @@ public class UserController {
                             @RequestParam(defaultValue = "10", required = false) Integer itemsPerPage,
                             @RequestParam(defaultValue = "id", required = false) String[] sortBy,
                             @RequestParam(defaultValue = "false",required = false) String[] desc,
-                            @RequestParam(required = false) String searchName) {
+                            @RequestParam(defaultValue = "", required = false) String searchName) {
 
         return userService.findAllUsers(pageNo, itemsPerPage, sortBy, desc, searchName);
     }
