@@ -12,8 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRespository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long> {
 
-    @Query("SELECT user FROM User user WHERE"
-            + " (:name is null or lower(user.name) LIKE :name%)")
+    @Query(value = "SELECT user FROM User user WHERE :name is null or lower(user.name) LIKE lower(concat('%', :name,'%'))")
     public Page<User> findByFilterName(Pageable page , @Param("name")  String name);
 
 }

@@ -31,7 +31,7 @@
             <v-toolbar-title
                     style="width: 300px"
                     class="ml-0 pl-4">
-                <span class="hidden-sm-and-down">Diego Romero Test</span>
+                <span class="hidden-sm-and-down">Diego Romero Bunny Studio Test</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
         </v-app-bar>
