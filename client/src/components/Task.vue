@@ -3,8 +3,9 @@
         <v-overlay :value="loading">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
-        <h1 v-if="!!user">{{user.name}} Task's</h1>
+        <h1 v-if="!!user && tasks.length > 0 ">{{user.name}} Task's</h1>
         <v-spacer></v-spacer>
+        <h1 v-if="!!user && tasks.length <= 0 ">No task to show for {{user.name}}</h1>
         <v-row class="col-12">
 
                 <v-card class="col-3" style="margin: 1em;" v-for="task in tasks" :key="task.id" :color="task.taskState == 'TO_DO' ? 'rgb(179, 69, 69)' : 'rgb(59, 132, 65)'" >
