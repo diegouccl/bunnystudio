@@ -35,4 +35,11 @@ For Vue project
 3) npm run dev
 
 
+Live demo on aws deployment with elasticbeanstalk and s3 for the front end, also a db runing on a google app engine instance
+
+````
+http://bunnstudio-frontend.s3-website.us-east-2.amazonaws.com
+```
+
+
 Diego Romero Bunny Studio Test
