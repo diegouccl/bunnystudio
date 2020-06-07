@@ -29,7 +29,7 @@ spring.jpa.hibernate.ddl-auto=create-drop
 Automatically the database is going to be creating with the following connection param
 ```
 
-4) Run the project
+5) Run the project
 
 mvn spring-boot:run
 
