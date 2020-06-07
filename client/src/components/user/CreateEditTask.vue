@@ -30,7 +30,6 @@
                                 required
                                 v-model="task.taskState"
                                 :items="states"
-                                selected
                                 label="Select Item"
                                 item-text="description"
                                 item-value="code"
@@ -91,10 +90,8 @@
             }
         },
         created() {
-            if(!this.sEdit){
-                this.taskState = new Object()
-                this.taskState.code  = 'TO_DO'
-                this.taskState.description  = 'This task is to do'
+            if(!this.isEdit){
+                this.task.taskState = this.states[0].code
             }
         }
     }

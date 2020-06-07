@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long>, PagingAndSortingRepository<Task, Long> {
-    List<Task> findAllByUser(User user);
+    List<Task> findAllByUserOrderByTaskStateDesc(User user);
 }

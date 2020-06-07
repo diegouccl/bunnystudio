@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +42,12 @@ public class TaskController {
         return ResponseEntity.ok(new ApiResponse(true, "Task deleted"));
 
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody Task task, @PathVariable("id") Long id) {
+        taskRepository.save(task);
+        return ResponseEntity.ok(new ApiResponse(true, "Task updated"));
+    }
+
 
 }

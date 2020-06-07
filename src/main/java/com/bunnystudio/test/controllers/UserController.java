@@ -87,7 +87,7 @@ public class UserController {
         List<Task> tasks = new ArrayList<>();
         if(userRespository.existsById(idUser)){
             User user = userRespository.getOne(idUser);
-            tasks = taskRepository.findAllByUser(user);
+            tasks = taskRepository.findAllByUserOrderByTaskStateDesc(user);
         }
         return new ResponseEntity<List<Task>>(tasks, new HttpHeaders(), HttpStatus.OK);
     }

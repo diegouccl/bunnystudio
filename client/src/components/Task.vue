@@ -8,10 +8,22 @@
         <h1 v-if="!!user && tasks.length <= 0 ">No task to show for {{user.name}}</h1>
         <v-row class="col-12">
 
-                <v-card class="col-3" style="margin: 1em;" v-for="task in tasks" :key="task.id" :color="task.taskState == 'TO_DO' ? 'rgb(179, 69, 69)' : 'rgb(59, 132, 65)'" >
-                    <v-card-title class="headline">{{task.description}}</v-card-title>
-                    <v-card-subtitle>{{task.description}}.</v-card-subtitle>
-                    {{task.taskState.description}}
+                <v-card class="col-3" style="margin: 1em;" v-for="task in tasks" :key="task.id" :color="task.taskState == 'TO_DO' ? 'rgb(191, 75, 75)' : 'rgb(84, 169, 91)'" >
+
+                    <v-card-title class="headline">
+                        <div class="row">
+                            <div class="col-4">Id: {{task.id}}</div>
+                            <div class="col-2"></div>
+                            <div class="col-6 text-right">
+                                {{task.taskState == 'TO_DO' ? 'TO DO' : 'DONE'}}
+                            </div>
+
+                        </div>
+
+                    </v-card-title>
+                    <v-card-subtitle>
+                        Description:  <b>{{task.description}}.</b></v-card-subtitle>
+
 
                     <v-card-actions class="float-right">
                         <v-btn @click="confirmDelete(task)">
@@ -103,8 +115,20 @@
                 this.isEdit = false
                 this.dialog = true
             },
-            updateTask(){
-                console.log('updateTask')
+            updateTask(task){
+                this.loading = true
+                this.$http.put('/task/'+ task.id, task )
+                    .then(() => {
+                        this.fetchData()
+                        this.loading = false
+                        this.dialog = false
+                    })
+                    .catch((error) => console.log(error))
+            },
+            editItem(task){
+                this.isEdit = true
+                this.task = Object.assign({}, task)
+                this.dialog = true
             },
             createTask(task){
                 this.loading = true
