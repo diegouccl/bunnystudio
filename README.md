@@ -11,10 +11,19 @@ For running this app you would have to clone the repository and make the followi
 
 For Spring project
 
-1) complete the setup con the application.properties specifying username, password and datasource url
-2) mvc clean install
-3) ./mvnw spring-boot:run
+1) Clone or download the project
+2) Install Dependencies with Maven (mvn clean install)
+3) Import project to IDE
+4) Run the project
 
+mvn spring-boot:run
+
+Note : Inside the project in the application.properties file, the properties:
+```
+spring.jpa.generate-ddl = true
+spring.jpa.hibernate.ddl-auto=create-drop
+Automatically the database is going to be creating with the following connection param:
+```
 For Vue project
 
 1) Go inside client folder
