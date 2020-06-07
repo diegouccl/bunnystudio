@@ -31,6 +31,11 @@ public class TaskController {
     @Autowired
     UserRespository userRespository;
 
+    /**
+     *  Method to delete a Task
+     * @param id
+     * @return ResponseEntity with status
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable("id") Long id) {
 
@@ -43,8 +48,14 @@ public class TaskController {
 
     }
 
+    /**
+     * Method to Update a task
+     * @param task
+     * @param id
+     * @return ResponseEntity with status
+     */
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@Valid @RequestBody Task task, @PathVariable("id") Long id) {
+    public ResponseEntity<?> updateTask(@Valid @RequestBody Task task, @PathVariable("id") Long id) {
         taskRepository.save(task);
         return ResponseEntity.ok(new ApiResponse(true, "Task updated"));
     }

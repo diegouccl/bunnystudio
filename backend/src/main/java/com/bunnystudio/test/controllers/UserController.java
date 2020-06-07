@@ -53,19 +53,34 @@ public class UserController {
         return userService.findAllUsers(pageNo, itemsPerPage, sortBy, desc, searchName);
     }
 
+    /**
+     * Method to create user
+     * @param user
+     * @return ResponseEntity with status
+     */
     @PostMapping(value = {"", "/"})
     public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
         userService.saveUser(user);
         return ResponseEntity.ok(new ApiResponse(true, "User created"));
     }
 
+    /**
+     * Method to update a user
+     * @param user
+     * @param id
+     * @return ResponseEntity with status
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@Valid @RequestBody User user, @PathVariable("id") Long id) {
         userService.saveUser(user);
         return ResponseEntity.ok(new ApiResponse(true, "User updated"));
     }
 
-
+    /**
+     * Method to Delete a user
+     * @param id
+     * @return ResponseEntity with status
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
 
@@ -80,7 +95,8 @@ public class UserController {
 
     /**
      * Method used for listing all taskFromUser
-     * @return List<User>
+     * @param idUser
+     * @return List<Task> List of task of a User
      */
     @RequestMapping("/{idUser}/task")
     public ResponseEntity<List<Task>> index(@PathVariable("idUser") long idUser) {
@@ -92,6 +108,11 @@ public class UserController {
         return new ResponseEntity<List<Task>>(tasks, new HttpHeaders(), HttpStatus.OK);
     }
 
+    /**
+     * Method to get one user
+     * @param idUser
+     * @return User
+     */
     @RequestMapping("/{idUser}")
     public User getUser(@PathVariable("idUser") long idUser){
         User user = null;
@@ -103,8 +124,10 @@ public class UserController {
 
 
     /**
-     * Method used for listing all taskFromUser
-     * @return List<User>
+     * Method to save a task from a user
+     * @param task
+     * @param idUser
+     * @return ResponseEntity with status
      */
     @PostMapping("/{idUser}/task")
     public ResponseEntity<?> saveTask(@Valid @RequestBody Task task, @PathVariable("idUser") long idUser) {

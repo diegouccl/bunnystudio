@@ -33,32 +33,4 @@ public class TestApplication extends SpringBootServletInitializer {
         return application.sources(TestApplication.class);
     }
 
-
-    /*@Bean
-    CommandLineRunner initDatabase(TaskRepository taskRepository,
-                                   UserRespository userRespository) {
-
-        List<User> userList = new ArrayList<>();
-        for(int i =0;i<50;i++){
-            User randomUser = new User();
-            randomUser.setName("Diego + " + i);
-            userList.add(randomUser);
-        }
-
-        User newUser = new User();
-        newUser.setName("Diego");
-        Task newTask = new Task();
-        newTask.setTaskState(TaskState.TO_DO);
-        newTask.setUser(newUser);
-        newTask.setDescription("task de prueba");
-
-
-        return args -> {
-            userRespository.saveAll(userList);
-            userRespository.save(newUser);
-            taskRepository.save(newTask);
-        };
-
-    }*/
-
 }
