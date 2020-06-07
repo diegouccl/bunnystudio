@@ -15,20 +15,24 @@ For running this app you would have to clone the repository and make the followi
 
 For Spring project
 
+
+
 1) Clone or download the project
 2) cd to backend
 2) Install Dependencies with Maven (mvn clean install)
 3) Import project to IDE
-4) Run the project
 
-mvn spring-boot:run
-
-Note : Inside the project in the application.properties file, the properties:
+Note : Inside the project in the application.properties file, uncomment the following properties and complete the database url, username and credentials:
 ```
 spring.jpa.generate-ddl = true
 spring.jpa.hibernate.ddl-auto=create-drop
 Automatically the database is going to be creating with the following connection param
 ```
+
+4) Run the project
+
+mvn spring-boot:run
+
 For Vue project
 
 1) Go inside fontend folder
