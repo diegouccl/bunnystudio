@@ -88,11 +88,6 @@
             return {
                 taskState: null
             }
-        },
-        created() {
-            if(!this.isEdit){
-                this.task.taskState = this.states[0].code
-            }
         }
     }
 

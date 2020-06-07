@@ -112,6 +112,7 @@
             },
             onCreate(){
                 this.task = new Object()
+                this.task.taskState = this.states[0].code
                 this.isEdit = false
                 this.dialog = true
             },
