@@ -100,4 +100,19 @@ public class UserController {
         }
         return user;
     }
+
+
+    /**
+     * Method used for listing all taskFromUser
+     * @return List<User>
+     */
+    @PostMapping("/{idUser}/task")
+    public ResponseEntity<?> saveTask(@Valid @RequestBody Task task, @PathVariable("idUser") long idUser) {
+        if(userRespository.existsById(idUser)){
+            User user = userRespository.getOne(idUser);
+            task.setUser(user);
+            taskRepository.save(task);
+        }
+        return ResponseEntity.ok(new ApiResponse(true, "Task created"));
+    }
 }

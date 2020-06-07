@@ -5,18 +5,31 @@
         </v-overlay>
         <h1 v-if="!!user">{{user.name}} Task's</h1>
         <v-spacer></v-spacer>
-        <v-row>
+        <v-row class="col-12">
 
-                <v-card style="width: 200px" v-for="task in tasks" :key="task.id" :color="task.taskState == 'TO_DO' ? 'rgb(179, 69, 69)' : '#385F73'" >
+                <v-card class="col-3" style="margin: 1em;" v-for="task in tasks" :key="task.id" :color="task.taskState == 'TO_DO' ? 'rgb(179, 69, 69)' : 'rgb(59, 132, 65)'" >
                     <v-card-title class="headline">{{task.description}}</v-card-title>
                     <v-card-subtitle>{{task.description}}.</v-card-subtitle>
+                    {{task.taskState.description}}
 
-                    <v-card-actions>
-                        <v-btn text>Listen Now</v-btn>
+                    <v-card-actions class="float-right">
+                        <v-btn @click="confirmDelete(task)">
+                            <v-icon
+                                small>
+                            mdi-delete
+                        </v-icon></v-btn>
+                        <v-btn @click="editItem(task)">
+                            <v-icon
+                                    small
+                                    class="mr-2"
+                            >
+                                mdi-pencil
+                            </v-icon>
+                        </v-btn>
+
                     </v-card-actions>
                 </v-card>
-
-
+            <v-spacer></v-spacer>
         </v-row>
         <v-btn bottom
                color="pink"
@@ -30,23 +43,24 @@
         </v-btn>
         <v-dialog v-model="dialog"
                   width="800px">
-            <create-edit-task @createUser="createTask" @updateUser="updateTask"
+            <create-edit-task @createTask="createTask" @updateTask="updateTask"
                               @close="dialog = false" :task="task" :states="states"
                               :isEdit="isEdit" :selectedState="selectedState"></create-edit-task>
         </v-dialog>
+        <confirm ref="confirm"></confirm>
     </v-container>
 </template>
 <script>
     import CreateEditTask from '../components/user/CreateEditTask.vue'
-    //import Confirm from './common/Dialog.vue'
+    import Confirm from './common/Dialog.vue'
 
     export default {
         components: {
             CreateEditTask,
-            //Confirm
+            Confirm
         },
         props: {
-            userId: String
+            userId: [String, Number]
         },
 
         data () {
@@ -57,7 +71,7 @@
                 task: null,
                 dialog: false,
                 isEdit: false,
-                states: [{code: 'TO_DO', text: 'This task is to do'},{code: 'DONE', text: 'this task is done'}],
+                states: [{code: 'TO_DO', description: 'This task is to do'},{code: 'DONE', description: 'this task is done'}],
                 selectedState: null
             }
         },
@@ -91,9 +105,32 @@
             updateTask(){
                 console.log('updateTask')
             },
-            createTask(){
-                console.log('createTask')
-            }
+            createTask(task){
+                this.loading = true
+                this.$http.post('/user/'+ this.user.id + '/task', task )
+                    .then(() => {
+                        this.fetchData()
+                        this.loading = false
+                        this.dialog = false
+                    })
+                    .catch((error) => console.log(error))
+            },
+            confirmDelete(task){
+                this.$refs.confirm.open('Delete', 'Are you sure?', { color: 'red' }).then((confirm) => {
+                    if(confirm){
+                        this.dropTask(task.id)
+                    }
+                })
+            },
+            dropTask(id){
+                this.loading = true
+                this.$http.delete('/task/' + id )
+                    .then(() => {
+                        this.fetchData()
+                        this.loading = false
+                    })
+                    .catch((error) => console.log(error))
+            },
 
         },
         mounted(){

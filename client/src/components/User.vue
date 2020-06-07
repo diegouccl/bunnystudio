@@ -145,7 +145,6 @@
                     .catch((error) => console.log(error))
             },
             createUser(newUser){
-                console.log(newUser)
                 this.loading = true
                 this.$http.post('/user', newUser )
                     .then(() => {

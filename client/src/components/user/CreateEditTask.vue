@@ -27,10 +27,13 @@
                     <v-col cols="5">
 
                         <v-select
-                                v-model="taskState"
+                                required
+                                v-model="task.taskState"
                                 :items="states"
                                 selected
                                 label="Select Item"
+                                item-text="description"
+                                item-value="code"
                         ></v-select>
                     </v-col>
 
@@ -78,19 +81,22 @@
                 this.$emit('updateTask', this.task)
             },
             createTask(){
+                console.log(this.task)
                 this.$emit('createTask', this.task)
             }
         },
         data () {
             return {
-                dropdown_icon: [
-                    { text: 'list', callback: () => console.log('list') },
-                    { text: 'favorite', callback: () => console.log('favorite') },
-                    { text: 'delete', callback: () => console.log('delete') },
-                ],
                 taskState: null
             }
         },
+        created() {
+            if(!this.sEdit){
+                this.taskState = new Object()
+                this.taskState.code  = 'TO_DO'
+                this.taskState.description  = 'This task is to do'
+            }
+        }
     }
 
 </script>
